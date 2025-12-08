@@ -1,0 +1,29 @@
+package DBLayer;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DbConnection {
+    private static DbConnection dbConnection;
+    private Connection connection;
+
+    private DbConnection() throws SQLException {
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://127.0.0.1:3306/tech_repair",
+                "root",
+                ""
+        );
+    }
+
+    public static DbConnection getInstance() throws SQLException {
+        if (dbConnection == null) {
+            dbConnection = new DbConnection();
+        }
+        return dbConnection;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+}
